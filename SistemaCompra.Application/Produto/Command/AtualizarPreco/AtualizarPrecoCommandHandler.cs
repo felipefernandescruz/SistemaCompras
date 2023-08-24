@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using SistemaCompra.Domain.ProdutoAggregate;
 using SistemaCompra.Infra.Data.UoW;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ProdutoAgg = SistemaCompra.Domain.ProdutoAggregate;

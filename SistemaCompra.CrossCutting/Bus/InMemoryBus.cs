@@ -1,6 +1,4 @@
 ﻿using MediatR;
-using SistemaCompra.CrossCutting.Bus.Command;
-using SistemaCompra.CrossCutting.Bus.Event;
 using System.Threading.Tasks;
 
 namespace SistemaCompra.CrossCutting.Bus

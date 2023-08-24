@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace SistemaCompra.CrossCutting.Bus.Event
+namespace SistemaCompra.CrossCutting.Bus
 {
     public interface IEvent : INotification
     {

@@ -34,11 +34,11 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public void RegistrarCompra(IEnumerable<Item> itens)
         {
-           if (itens is null && itens.Any() is false)
+            if (itens is null && itens.Any() is false)
                 return;
-            
-           Itens = itens.ToList();
-           CalcularTotalGeral();
+
+            Itens = itens.ToList();
+            CalcularTotalGeral();
         }
 
         public void CalcularTotalGeral()
