@@ -4,7 +4,7 @@ using SolicitacaoCompraAgg = SistemaCompra.Domain.SolicitacaoCompraAggregate;
 namespace SistemaCompra.Infra.Data.SolicitacaoCompra
 {
 
-    internal class SolicitacaoCompraRepository : ISolicitacaoCompraRepository
+    public class SolicitacaoCompraRepository : ISolicitacaoCompraRepository
     {
         private readonly SistemaCompraContext _context;
 

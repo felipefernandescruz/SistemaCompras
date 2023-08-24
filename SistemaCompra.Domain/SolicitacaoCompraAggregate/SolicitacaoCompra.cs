@@ -1,4 +1,5 @@
-﻿using SistemaCompra.Domain.Core.Model;
+﻿using SistemaCompra.Domain.Core;
+using SistemaCompra.Domain.Core.Model;
 using SistemaCompra.Domain.ProdutoAggregate;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public void RegistrarCompra(IEnumerable<Item> itens)
         {
             if (itens is null && itens.Any() is false)
-                return;
+                throw new BusinessRuleException("Não há itens na solicitação de compra");
 
             Itens = itens.ToList();
             CalcularTotalGeral();
