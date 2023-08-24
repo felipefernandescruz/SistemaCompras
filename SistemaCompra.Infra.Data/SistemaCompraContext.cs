@@ -16,10 +16,10 @@ namespace SistemaCompra.Infra.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProdutoAgg.Produto>()
-                .HasData(
-                    new ProdutoAgg.Produto("Produto01", "Descricao01", "Madeira", 100)
-                );
+            //modelBuilder.Entity<ProdutoAgg.Produto>()
+            //    .HasData(
+            //        new ProdutoAgg.Produto("Produto01", "Descricao01", "Madeira", 100)
+            //    );
 
             modelBuilder.Ignore<Event>();
 
@@ -30,7 +30,7 @@ namespace SistemaCompra.Infra.Data
         {
             optionsBuilder.UseLoggerFactory(loggerFactory)  
                 .EnableSensitiveDataLogging()
-                .UseSqlServer(@"Server=localhost\SQLEXPRESS01;Database=SistemaCompraDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+                .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SistemaCompraDb;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
     }
 }

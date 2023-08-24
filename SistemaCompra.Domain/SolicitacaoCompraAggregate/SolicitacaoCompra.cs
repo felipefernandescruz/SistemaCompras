@@ -1,7 +1,5 @@
-﻿using SistemaCompra.Domain.Core;
-using SistemaCompra.Domain.Core.Model;
+﻿using SistemaCompra.Domain.Core.Model;
 using SistemaCompra.Domain.ProdutoAggregate;
-using SistemaCompra.Domain.SolicitacaoCompraAggregate.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +14,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public DateTime Data { get; private set; }
         public Money TotalGeral { get; private set; }
         public Situacao Situacao { get; private set; }
+        public CondicaoPagamento CondicaoPagamento { get; private set; }
 
         private SolicitacaoCompra() { }
 
@@ -35,7 +34,31 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public void RegistrarCompra(IEnumerable<Item> itens)
         {
-           
+           if (itens is null && itens.Any() is false)
+                return;
+            
+           Itens = itens.ToList();
+           CalcularTotalGeral();
+        }
+
+        public void CalcularTotalGeral()
+        {
+            TotalGeral = new Money(Itens.Sum(x => x.Subtotal.Value));
+
+            if (TotalGeral is null || TotalGeral.Value == 0) return;
+
+            DefinirCondicaoPagamento();
+        }
+        private void DefinirCondicaoPagamento()
+        {
+            CondicaoPagamento = new CondicaoPagamento(PrazoPagamento(TotalGeral.Value));
+        }
+
+        private static int PrazoPagamento(decimal valorTotal)
+        {
+            if (valorTotal > 50000) return 30;
+
+            return default;
         }
     }
 }
