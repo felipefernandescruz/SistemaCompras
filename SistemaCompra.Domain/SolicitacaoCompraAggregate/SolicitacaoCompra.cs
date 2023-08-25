@@ -36,7 +36,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public void RegistrarCompra(IEnumerable<Item> itens)
         {
             if (itens is null || itens.Any() is false)
-                throw new BusinessRuleException("Não há itens na solicitação de compra");
+                throw new BusinessRuleException("A solicitação de compra deve possuir itens!");
 
             Itens = itens.ToList();
             CalcularTotalGeral();
