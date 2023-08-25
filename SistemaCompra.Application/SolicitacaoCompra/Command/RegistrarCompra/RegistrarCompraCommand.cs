@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Collections.Generic;
 
-namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarSolicitacaoCompra
+namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra
 {
     public class RegistrarCompraCommand : IRequest<bool>
     {

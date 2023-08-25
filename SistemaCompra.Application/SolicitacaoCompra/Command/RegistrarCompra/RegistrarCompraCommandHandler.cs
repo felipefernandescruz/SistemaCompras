@@ -6,41 +6,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using SolicitacaoCompraAgg = SistemaCompra.Domain.SolicitacaoCompraAggregate;
 using ProdutoAgg = SistemaCompra.Domain.ProdutoAggregate;
-using SistemaCompra.Infra.Data.SolicitacaoCompra;
+using SolicitacaoCompraAgg = SistemaCompra.Domain.SolicitacaoCompraAggregate;
 
-namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarSolicitacaoCompra
+namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra
 {
     public class RegistrarCompraCommandHandler : CommandHandler, IRequestHandler<RegistrarCompraCommand, bool>
     {
-        private readonly SolicitacaoCompraAgg.ISolicitacaoCompraRepository _solicitacaoCompraRepository;
+        private readonly ISolicitacaoCompraRepository _solicitacaoCompraRepository;
 
-        public RegistrarCompraCommandHandler(SolicitacaoCompraAgg.ISolicitacaoCompraRepository solicitacaoCompraRepository, IUnitOfWork uow, IMediator mediator) : base(uow, mediator)
+        public RegistrarCompraCommandHandler(ISolicitacaoCompraRepository solicitacaoCompraRepository, IUnitOfWork uow, IMediator mediator) : base(uow, mediator)
         {
             _solicitacaoCompraRepository = solicitacaoCompraRepository;
         }
 
         public Task<bool> Handle(RegistrarCompraCommand request, CancellationToken cancellationToken)
         {
-            try
-            {
-                var solicitacaoCompra = SolicitacaoCompraToRepositoryObject(request);
+            var solicitacaoCompra = SolicitacaoCompraToRepositoryObject(request);
 
-                var ItemList = ItemListToRepositoryObject(request.ListaItem);
-                solicitacaoCompra.RegistrarCompra(ItemList);
+            var ItemList = ItemListToRepositoryObject(request.ListaItem);
+            solicitacaoCompra.RegistrarCompra(ItemList);
 
-                _solicitacaoCompraRepository.RegistrarCompra(solicitacaoCompra);
+            _solicitacaoCompraRepository.RegistrarCompra(solicitacaoCompra);
 
-                Commit();
-                PublishEvents(solicitacaoCompra.Events);
+            Commit();
+            PublishEvents(solicitacaoCompra.Events);
 
-                return Task.FromResult(true);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return Task.FromResult(true);
         }
 
         private SolicitacaoCompraAgg.SolicitacaoCompra SolicitacaoCompraToRepositoryObject(RegistrarCompraCommand request)

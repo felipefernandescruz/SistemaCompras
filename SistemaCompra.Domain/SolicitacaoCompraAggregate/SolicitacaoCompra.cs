@@ -35,7 +35,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public void RegistrarCompra(IEnumerable<Item> itens)
         {
-            if (itens is null && itens.Any() is false)
+            if (itens is null || itens.Any() is false)
                 throw new BusinessRuleException("Não há itens na solicitação de compra");
 
             Itens = itens.ToList();
@@ -46,7 +46,8 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         {
             TotalGeral = new Money(Itens.Sum(x => x.Subtotal.Value));
 
-            if (TotalGeral is null || TotalGeral.Value == 0) return;
+            if (TotalGeral is null || TotalGeral.Value == 0)
+                throw new BusinessRuleException("O valor total da compra precisam ser maiores do que 0");
 
             DefinirCondicaoPagamento();
         }

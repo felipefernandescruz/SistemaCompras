@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarSolicitacaoCompra
+namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra
 {
     public class ItemCommand : IRequest<bool>
     {
